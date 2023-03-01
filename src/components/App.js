@@ -16,7 +16,6 @@ function App() {
 
   function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
-    console.log('hi');
   }
 
   function handleEditProfileClick() {
