@@ -62,7 +62,7 @@ export default function Main(props) {
         {
           cards.map((item) => {
             
-            return <Card onCardClick={props.onCardClick} card={item} name={item.name} link={item.link} likes={item.likes}/>
+            return <Card onCardClick={props.onCardClick} card={item} key={item._id} name={item.name} link={item.link} likes={item.likes}/>
           })
         }
       </section>
