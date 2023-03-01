@@ -8,5 +8,4 @@
     transition: all 0.3s ease;
 	opacity: 0;
 	visibility: hidden;
-    border: 1px solid red;
 }

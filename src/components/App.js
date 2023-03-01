@@ -43,7 +43,7 @@ function App() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Место</title>
-      <body className='body'>
+      <body className="body">
         <div className="page">
           <Header />
           <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleEditPlaceClick} onCardClick={handleCardClick}/>
