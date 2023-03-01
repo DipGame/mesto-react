@@ -30,9 +30,10 @@ export default function Main(props) {
       .then((data) => {
         const newCards = data.map((card) => {
           return {
-            cName: card.name,
-            cLink: card.link,
-            cLikes: card.likes.length
+            name: card.name,
+            link: card.link,
+            likes: card.likes.length,
+            _id: card._id
           }
         })
         console.log(newCards)
@@ -59,8 +60,9 @@ export default function Main(props) {
       </section>
       <section className="elements">
         {
-          cards.map((card) => {
-            return <Card onClick={props.onCardClick} nameImage={card.cName} linkImage={card.cLink} likesImage={card.cLikes}/>
+          cards.map((item) => {
+            
+            return <Card onCardClick={props.onCardClick} card={item} name={item.name} link={item.link} likes={item.likes}/>
           })
         }
       </section>

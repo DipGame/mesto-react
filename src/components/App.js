@@ -12,11 +12,11 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setselectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
 
-  function handleCardClick() {
-    setselectedCard(true);
-    console.log('hi')
+  function handleCardClick(selectedCard) {
+    setSelectedCard(selectedCard);
+    console.log('hi');
   }
 
   function handleEditProfileClick() {
@@ -35,7 +35,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setselectedCard(false);
+    setSelectedCard({});
   }
 
   return (
@@ -43,12 +43,14 @@ function App() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Место</title>
-      <div className='body'>
+      <body className='body'>
         <div className="page">
           <Header />
           <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleEditPlaceClick} onCardClick={handleCardClick}/>
           <Footer />
-          <PopupWithForm isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} name='popup' text='Редактировать профиль'>
+          
+        </div>
+        <PopupWithForm isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} name='popup' text='Редактировать профиль'>
             <input
               id="popupUserName"
               className="popup__input popup__input_one"
@@ -121,8 +123,7 @@ function App() {
             />
           </PopupWithForm>
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
-        </div>
-      </div>
+      </body>
       <template className="placeTemplate" id="placeCardTemplate" />
     </>
   );

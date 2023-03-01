@@ -11,6 +11,7 @@
  html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  display: flex;
 }
 
 /* Sections
@@ -21,7 +22,11 @@
  */
 
 body {
-  margin: 0;
+  background-color: #000000;
+    margin: auto;
+    padding: 0;
+    width: 100%;
+
 }
 
 /**
