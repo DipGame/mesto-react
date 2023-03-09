@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-
 import React from 'react';
 import { api } from '../utils/Api.js';
-
 import Main from './Main.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
@@ -12,7 +10,6 @@ import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import ImagePopup from './ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
 
 function App() {
 
@@ -34,6 +31,7 @@ function App() {
         setCurrentUser(data);
         // console.log(data);
       })
+      .catch((err) => console.log(err))
   }, []);
 
   useEffect(() => {
@@ -42,8 +40,10 @@ function App() {
         const newCards = data.map((card) => {
           return card
         })
+
         setCards(newCards)
       })
+      .catch((err) => console.log(err))
   }, [])
 
   function handleCardLike(card) {
@@ -53,7 +53,8 @@ function App() {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         console.log(newCard);
         console.log('hi api');
-      });
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleUpdateUser({ name, about }) {
@@ -65,19 +66,25 @@ function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
+      .catch((err) => console.log(err))
   }
 
   function handleCardDelete(card) {
     api.deleteCards(card._id)
       .then((data) => {
-        const newCard = cards.filter((item) => item._id !== card._id);
-        setCards(newCard);
-      });
+        setCards(prevState => prevState.filter((item) => item._id !== card._id))
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleUpdateAvatar(avatar) {
     console.log(avatar);
-    api.createNewAvatar(avatar);
+    api.createNewAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
     closeAllPopups();
   }
 
@@ -91,6 +98,7 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
+      .catch((err) => console.log(err))
   }
 
   function handleCardClick(selectedCard) {
@@ -118,7 +126,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <body className="body">
+      <div className="body">
         <div className="page">
           <Header />
           <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleEditPlaceClick} onCardClick={handleCardClick} onCardLike={handleCardLike}
@@ -133,7 +141,7 @@ function App() {
         <AddPlacePopup onUpdatePlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-      </body>
+      </div>
       <template className="placeTemplate" id="placeCardTemplate" />
     </CurrentUserContext.Provider>
   );

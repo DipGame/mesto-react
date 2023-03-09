@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function EditAvatarPopup(props) {
 
-    const refInput = React.useRef();
+    const refInput = React.useRef('');
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -13,10 +13,15 @@ export default function EditAvatarPopup(props) {
         props.onUpdateAvatar({
             avatar: refInput.current.value,
         });
+
     }
 
+    useEffect(() => {
+        refInput.current.value = ''
+    }, [handleSubmit]);
+
     return (
-        <PopupWithForm onSubmit={handleSubmit} isOpen={props.isOpen} onClose={props.onClose} name='avatar' text='Обновить аватар'>
+        <PopupWithForm buttonText='Сохранить' onSubmit={handleSubmit} isOpen={props.isOpen} onClose={props.onClose} name='avatar' text='Обновить аватар'>
             <input
                 id="avatarUrl"
                 ref={refInput}
@@ -33,4 +38,3 @@ export default function EditAvatarPopup(props) {
         </PopupWithForm>
     );
 }
-
